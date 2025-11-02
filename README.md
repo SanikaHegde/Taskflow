@@ -74,21 +74,12 @@ PORT → 10000
 
 ✅ Your app will be deployed and accessible via Render’s live link!
 
-----
+## 📊 Results
 
-## 💡 Tech Stack
+Here’s what the TaskFlow Dashboard looks like 👇  
 
-- **Frontend:** HTML, CSS, JavaScript  
-- **Backend:** Node.js, Express.js  
-- **Database:** PostgreSQL (via Render)  
-- **Charts:** Chart.js  
-- **Hosting:** Render (Free Tier)
+![Dashboard Screenshot](public/images/dashboard.png)
 
 ---
 
-## 🧠 Future Improvements
 
-- ✅ Edit & mark tasks as completed  
-- ✅ Add categories/tags  
-- ✅ Add user login system  
-- ✅ Email/SMS reminders for due dates
