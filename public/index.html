@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskFlow | Smart Task Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #e0f2fe, #ede9fe, #f0f9ff);
+      background-size: 300% 300%;
+      animation: gradientShift 15s ease infinite;
+      color: #0f172a;
+      text-align: center;
+    }
+    header { padding: 25px; font-size: 2rem; font-weight: 700; color: #1e3a8a; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); box-shadow: 0 2px 15px rgba(0,0,0,0.1); border-bottom: 1px solid rgba(0,0,0,0.05); }
+    .hero { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 60vh; padding: 0 20px; animation: fadeIn 1.2s ease; }
+    h1 { font-size: 3rem; font-weight: 700; margin-bottom: 20px; color: #1e3a8a; background: rgba(255,255,255,0.4); padding: 14px 35px; border-radius: 20px; box-shadow: 0 4px 25px rgba(0,0,0,0.08); text-shadow: 0 0 10px rgba(59,130,246,0.3); }
+    h3 { font-weight: 400; color: #334155; max-width: 650px; margin-bottom: 40px; line-height: 1.6; font-size: 1.1rem; background: rgba(255,255,255,0.3); padding: 18px 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .cta-buttons { display: flex; gap: 20px; justify-content: center; }
+    .cta-btn { background: linear-gradient(90deg, #3b82f6, #2563eb); color: #fff; border: none; padding: 14px 36px; font-size: 1.1rem; border-radius: 12px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 0 10px rgba(37,99,235,0.4); }
+    .cta-btn:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 0 20px rgba(37,99,235,0.6); background: linear-gradient(90deg, #2563eb, #1d4ed8); }
+    footer { margin-top: 80px; color: #475569; font-size: 0.9rem; padding-bottom: 20px; }
+    #taskSection { width: 95%; max-width: 1100px; margin: 50px auto; background: rgba(255, 255, 255, 0.7); border-radius: 25px; padding: 40px; backdrop-filter: blur(15px); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); opacity: 0; transform: translateY(-40px); transition: all 0.7s ease; visibility: hidden; }
+    #taskSection.active { opacity: 1; transform: translateY(0); visibility: visible; }
+    h2 { color: #1d4ed8; margin-bottom: 25px; font-size: 1.8rem; background: rgba(255,255,255,0.5); display: inline-block; padding: 10px 25px; border-radius: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.05); text-shadow: 0 0 8px rgba(37,99,235,0.4); }
+    form { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+    input, textarea, select, button { border: none; border-radius: 10px; padding: 13px; font-size: 1rem; transition: all 0.3s ease; }
+    input, textarea, select { background: rgba(255,255,255,0.8); border: 1px solid #cbd5e1; }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 8px rgba(37,99,235,0.25); }
+    button { background: linear-gradient(90deg, #2563eb, #3b82f6); color: #fff; font-weight: 600; cursor: pointer; }
+    button:hover { transform: scale(1.03); box-shadow: 0 0 15px rgba(37,99,235,0.5); }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background: rgba(255,255,255,0.9); border-radius: 15px; overflow: hidden; }
+    th, td { padding: 14px 20px; text-align: center; }
+    th { background: #6366f1; color: white; font-weight: 600; }
+    tr:nth-child(even) { background: rgba(240, 249, 255, 0.7); }
+    tr:hover { background: rgba(219, 234, 254, 0.9); }
+
+    /* ✅ Updated Action Buttons */
+    td button {
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      margin: 0 6px;
+      transition: all 0.25s ease;
+      padding: 6px 10px;
+      border-radius: 8px;
+    }
+
+    td button:hover { transform: scale(1.15); }
+
+    td button[onclick^="completeTask"] {
+      background: linear-gradient(90deg, #22c55e, #16a34a);
+      color: white;
+      box-shadow: 0 0 10px rgba(22,163,74,0.3);
+    }
+
+    td button[onclick^="completeTask"]:hover {
+      background: linear-gradient(90deg, #16a34a, #15803d);
+      box-shadow: 0 0 15px rgba(22,163,74,0.5);
+    }
+
+    td button[onclick^="deleteTask"] {
+      background: linear-gradient(90deg, #ef4444, #dc2626);
+      color: white;
+      box-shadow: 0 0 10px rgba(239,68,68,0.3);
+    }
+
+    td button[onclick^="deleteTask"]:hover {
+      background: linear-gradient(90deg, #dc2626, #b91c1c);
+      box-shadow: 0 0 15px rgba(239,68,68,0.5);
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+  </style>
+</head>
+
+<body>
+  <header>⚡ TaskFlow</header>
+
+  <div class="hero">
+    <h1>Stay Organized. Get More Done.</h1>
+    <h3>Your smart workspace for powerful task management</h3>
+    <div class="cta-buttons">
+      <button class="cta-btn" onclick="toggleTasks()">View Tasks</button>
+      <button class="cta-btn" onclick="goToDashboard()">Dashboard</button>
+    </div>
+  </div>
+
+  <div id="taskSection">
+    <h2>📋 Task Manager</h2>
+    <form id="taskForm">
+      <input type="text" name="title" placeholder="Task Title" required />
+      <textarea name="description" placeholder="Task Description"></textarea>
+      <input type="date" name="due_date" placeholder="Due Date" />
+      <select name="priority" required>
+        <option value="Medium" selected>Priority: Medium</option>
+        <option value="High">Priority: High</option>
+        <option value="Low">Priority: Low</option>
+      </select>
+      <button type="submit">+ Add Task</button>
+    </form>
+
+    <table id="taskTable">
+      <thead>
+        <tr>
+          <th>TITLE</th>
+          <th>DESCRIPTION</th>
+          <th>STATUS</th>
+          <th>PRIORITY</th>
+          <th>DUE DATE</th>
+          <th>CREATED</th>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody id="taskList"></tbody>
+    </table>
+  </div>
+
+  <footer>© 2025 TaskFlow — Built for Focus & Flow</footer>
+
+  <script>
+    const API_URL = "http://localhost:3000/tasks";
+    const taskSection = document.getElementById("taskSection");
+    const list = document.getElementById("taskList");
+
+    function toggleTasks() {
+      taskSection.classList.toggle("active");
+      if (taskSection.classList.contains("active")) loadTasks();
+    }
+
+    async function loadTasks() {
+      try {
+        const res = await fetch(API_URL);
+        const tasks = await res.json();
+        renderTasks(tasks);
+      } catch {
+        list.innerHTML = "<tr><td colspan='7' style='color:#dc2626;'>⚠ Could not fetch tasks. Ensure your server is running.</td></tr>";
+      }
+    }
+
+    function renderTasks(tasks) {
+      list.innerHTML = "";
+      if (tasks.length === 0) {
+        list.innerHTML = "<tr><td colspan='7'>No tasks yet. Add one above!</td></tr>";
+        return;
+      }
+
+      tasks.forEach(task => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${task.title}</td>
+          <td>${task.description || ""}</td>
+          <td>${task.status}</td>
+          <td>${task.priority || "Medium"}</td>
+          <td>${task.due_date || "-"}</td>
+          <td>${task.created_at || "-"}</td>
+          <td>
+            ${task.status !== "completed" ? `<button onclick="completeTask(${task.id})">✔</button>` : ""}
+            <button onclick="deleteTask(${task.id})">🗑</button>
+          </td>
+        `;
+        list.appendChild(tr);
+      });
+    }
+
+    document.getElementById("taskForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      const title = e.target.title.value.trim();
+      const description = e.target.description.value.trim();
+      const due_date = e.target.due_date.value;
+      const priority = e.target.priority.value;
+      if (!title) return alert("Enter a title!");
+
+      await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, description, due_date, priority }),
+      });
+      e.target.reset();
+      loadTasks();
+    });
+
+    async function completeTask(id) {
+      await fetch(`${API_URL}/${id}`, { method: "PUT" });
+      loadTasks();
+    }
+
+    async function deleteTask(id) {
+      await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+      loadTasks();
+    }
+
+    function goToDashboard() {
+      window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+</html>

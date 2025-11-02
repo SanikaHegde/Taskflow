@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TaskFlow | SaaS Analytics Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: #f5f7fb;
+      color: #333;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background-color: #111827;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding: 30px 20px;
+      position: fixed;
+      height: 100vh;
+      box-shadow: 3px 0 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #60a5fa;
+    }
+
+    .nav-item {
+      padding: 12px 18px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .nav-item:hover, .active {
+      background: rgba(96,165,250,0.15);
+      color: #60a5fa;
+    }
+
+    /* Main Dashboard Area */
+    .main {
+      margin-left: 250px;
+      flex: 1;
+      padding: 30px 50px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      color: #1e3a8a;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .back-btn {
+      background: linear-gradient(90deg, #2563eb, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #1e3a8a;
+      transform: scale(1.05);
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f3f4f6;
+      padding: 8px 14px;
+      border-radius: 20px;
+    }
+
+    .user-profile img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+    }
+
+    /* Stats Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card h3 {
+      color: #6b7280;
+      font-size: 1rem;
+    }
+
+    .card h2 {
+      font-size: 2.2rem;
+      color: #2563eb;
+      margin-top: 10px;
+    }
+
+    /* Add Task Form */
+    .task-form {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      margin-bottom: 40px;
+    }
+
+    .task-form h3 {
+      color: #1e3a8a;
+      margin-bottom: 15px;
+    }
+
+    .task-form form {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .task-form input, .task-form textarea {
+      flex: 1;
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    .task-form button {
+      background: linear-gradient(90deg, #2563eb, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.3s;
+    }
+
+    .task-form button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Charts */
+    .charts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .chart-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .chart-card h3 {
+      color: #1e3a8a;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>TaskFlow</h2>
+    <div class="nav-item active">📊 Dashboard</div>
+    <div class="nav-item">🗂️ All Tasks</div>
+    <div class="nav-item">✅ Completed</div>
+    <div class="nav-item">⚙️ Settings</div>
+    <div class="nav-item">🚪 Logout</div>
+  </div>
+
+  <!-- Main Section -->
+  <div class="main">
+    <header>
+      <h1>Analytics Dashboard</h1>
+      <div class="header-right">
+        <button class="back-btn" onclick="goHome()">← Back to Home</button>
+        <div class="user-profile">
+          <span>Welcome, Admin</span>
+          <img src="https://i.pravatar.cc/100" alt="User Avatar">
+        </div>
+      </div>
+    </header>
+
+    <!-- Stats Cards -->
+    <section class="cards">
+      <div class="card"><h3>Total Tasks</h3><h2 id="totalTasks">0</h2></div>
+      <div class="card"><h3>Completed</h3><h2 id="completedTasks">0</h2></div>
+      <div class="card"><h3>Pending</h3><h2 id="pendingTasks">0</h2></div>
+      <div class="card"><h3>Completion Rate</h3><h2 id="completionRate">0%</h2></div>
+    </section>
+
+    <!-- Add Task Form -->
+    <section class="task-form">
+      <h3>Add New Task</h3>
+      <form id="taskForm">
+        <input type="text" id="title" placeholder="Task title" required>
+        <textarea id="description" rows="1" placeholder="Task description"></textarea>
+        <button type="submit">Add Task</button>
+      </form>
+    </section>
+
+    <!-- Charts -->
+    <section class="charts">
+      <div class="chart-card">
+        <h3>Task Completion Overview</h3>
+        <canvas id="barChart"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <h3>Task Status Breakdown</h3>
+        <canvas id="pieChart"></canvas>
+      </div>
+    </section>
+
+    <footer>© 2025 TaskFlow | Built for SaaS Innovation</footer>
+  </div>
+
+  <!-- JS -->
+  <script>
+    function goHome() {
+      window.location.href = "index.html";
+    }
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
