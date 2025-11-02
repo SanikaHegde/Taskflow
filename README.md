@@ -57,7 +57,8 @@ PORT → 10000
 
 Here’s what the TaskFlow Dashboard looks like 👇  
 
-![Dashboard Screenshot]([public/images/dashboard.png](https://github.com/SanikaHegde/Taskflow/blob/1702980ff08e9c9bcc3c7ae3b8566a94d2e37b58/Screenshot%202025-11-02%20135802.png)
+![image alt](https://github.com/SanikaHegde/Taskflow/blob/1702980ff08e9c9bcc3c7ae3b8566a94d2e37b58/Screenshot%202025-11-02%20135802.png)
+
 
 ---
 
