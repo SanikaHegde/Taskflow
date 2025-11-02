@@ -30,28 +30,7 @@ Taskflow/
 └── README.md
 
 ---
-## ⚙️ Setup Instructions
 
-### 1️⃣ Clone the repository
-```bash
-git clone https://github.com/SanikaHegde/Taskflow.git
-cd Taskflow
-2️⃣ Install dependencies
-npm install
-3️⃣ Configure environment variables
-
-Create a .env file in the root directory:
-
-DATABASE_URL=postgres
-
-4️⃣ Run locally
-node server.js
-
-
-Then open your browser at:
-👉 http://localhost:10000
-
----
 ## 🌍 Deployment (Render)
 
 Push code to your GitHub repository.
