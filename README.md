@@ -17,3 +17,13 @@ Your smart workspace for powerful task management — built with **Node.js**, **
 ---
 
 ## 🗂️ Project Structure
+Taskflow/
+├── server.js # Express server
+├── db.js # PostgreSQL database connection
+├── public/
+│ ├── index.html # Frontend UI
+│ ├── style.css # Styling
+│ ├── script.js # Frontend logic
+├── package.json
+├── .env # Environment variables (DB connection)
+└── README.md
