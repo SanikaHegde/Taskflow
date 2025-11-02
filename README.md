@@ -73,6 +73,9 @@ DATABASE_URL → your PostgreSQL URL
 PORT → 10000
 
 ✅ Your app will be deployed and accessible via Render’s live link!
+
+----
+
 ## 💡 Tech Stack
 
 - **Frontend:** HTML, CSS, JavaScript  
@@ -89,4 +92,3 @@ PORT → 10000
 - ✅ Add categories/tags  
 - ✅ Add user login system  
 - ✅ Email/SMS reminders for due dates
-
