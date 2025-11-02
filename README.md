@@ -27,3 +27,25 @@ Taskflow/
 ├── package.json
 ├── .env # Environment variables (DB connection)
 └── README.md
+
+🌍 Deployment (Render)
+
+Push code to your GitHub repository.
+
+Go to Render → New → Web Service.
+
+Connect your repo and set:
+
+Environment: Node
+
+Build Command: npm install
+
+Start Command: node server.js
+
+Add environment variables in Render:
+
+DATABASE_URL → your PostgreSQL URL
+
+PORT → 10000
+
+Your app will be deployed and accessible via Render’s live link
