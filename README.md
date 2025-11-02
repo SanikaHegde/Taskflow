@@ -49,3 +49,22 @@ DATABASE_URL → your PostgreSQL URL
 PORT → 10000
 
 Your app will be deployed and accessible via Render’s live link
+
+
+## 💡 Tech Stack
+
+- **Frontend:** HTML, CSS, JavaScript  
+- **Backend:** Node.js, Express.js  
+- **Database:** PostgreSQL (via Render)  
+- **Charts:** Chart.js  
+- **Hosting:** Render (Free Tier)
+
+---
+
+## 🧠 Future Improvements
+
+- ✅ Edit & mark tasks as completed  
+- ✅ Add categories/tags  
+- ✅ Add user login system  
+- ✅ Email/SMS reminders for due dates
+
