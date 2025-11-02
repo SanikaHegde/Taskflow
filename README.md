@@ -29,29 +29,22 @@ Taskflow/
 ├── .env # Environment variables (DB connection)
 └── README.md
 
+---
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/SanikaHegde/Taskflow.git
+cd Taskflow
+2️⃣ Install dependencies
+npm install
+3️⃣ Configure environment variables
+
+Create a .env file in the root directory:
+
+DATABASE_URL=postgres
 
 
-🌍 Deployment (Render)
-
-Push code to your GitHub repository.
-
-Go to Render → New → Web Service.
-
-Connect your repo and set:
-
-Environment: Node
-
-Build Command: npm install
-
-Start Command: node server.js
-
-Add environment variables in Render:
-
-DATABASE_URL → your PostgreSQL URL
-
-PORT → 10000
-
-Your app will be deployed and accessible via Render’s live link
 
 
 ## 💡 Tech Stack
