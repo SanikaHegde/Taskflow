@@ -7,7 +7,7 @@ Your smart workspace for powerful task management — built with **Node.js**, **
 ---
 
 ## 🚀 Features  
-✅ Add, view, and delete tasks  
+✅ Add, view, and delete tasks   
 ✅ Track **status**, **priority**, and **due dates**  
 ✅ Visualize task stats with **Chart.js** (bar & pie charts)  
 ✅ Responsive and minimal UI  
