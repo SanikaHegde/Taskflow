@@ -10,7 +10,7 @@ Your smart workspace for powerful task management — built with **Node.js**, **
 ✅ Add, view, and delete tasks   
 ✅ Track **status**, **priority**, and **due dates**  
 ✅ Visualize task stats with **Chart.js** (bar & pie charts)  
-✅ Responsive and minimal UI  
+✅ Responsive and minimal UI   
 ✅ Fully connected to a **Render PostgreSQL database**   
 ✅ Auto-deployment via **Render Web Service**
  
