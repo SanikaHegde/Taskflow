@@ -13,7 +13,7 @@ Your smart workspace for powerful task management — built with **Node.js**, **
 ✅ Responsive and minimal UI  
 ✅ Fully connected to a **Render PostgreSQL database**   
 ✅ Auto-deployment via **Render Web Service**
-
+ 
 ---
 
 ## 🗂️ Project Structure
