@@ -14,12 +14,12 @@ Your smart workspace for powerful task management — built with **Node.js**, **
 ✅ Fully connected to a **Render PostgreSQL database**   
 ✅ Auto-deployment via **Render Web Service**
  
----
+--- 
 
 ## 🗂️ Project Structure
 
 Taskflow/
-├── server.js # Express server
+├── server.js # Express server 
 ├── db.js # PostgreSQL database connection
 ├── public/
 │ ├── index.html # Frontend UI
